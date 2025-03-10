@@ -1,0 +1,27 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Rust (or Python/C)
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build Project
+        run: cargo build  # Change to `python main.py` or `gcc -o main src/main.c`
+
+      - name: Run Tests
+        run: cargo test  # Change to `pytest tests/` or `./test`
